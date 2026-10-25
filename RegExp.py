@@ -49,7 +49,8 @@ def rename_files(dir, pattern, new_pattern=None, sample_names=None, to_replace=F
 
             new_path = directory / new_name
 
-            if not new_path.exists():
+            if to_replace:
+                file.rename(new_path)
+            else:
                 shutil.copy2(file, new_path)
-
     
