@@ -1,5 +1,6 @@
 import re
 from pathlib import Path
+import shutil
 
 def rus2salt(text):
     pattern = r'[АЕЁИОУЫЭЮЯаеёиоуыэюя]'
@@ -40,6 +41,8 @@ def rename_files(files_path):
     for file in directory.iterdir():
         if re.search(pattern, file.name):
             new_name = re.sub(pattern, new_pattern, file.name)
+            new_path = directory / new_name
+            shutil.copy2(file, new_path)
             print(new_name)
 
     
