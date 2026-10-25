@@ -1,4 +1,5 @@
 import re
+from pathlib import Path
 
 def rus2salt(text):
     pattern = r'[АЕЁИОУЫЭЮЯаеёиоуыэюя]'
@@ -28,5 +29,12 @@ def get_chords(file_path):
 
     chords = set(re.findall(pattern, text))
     print(chords)
-    
+
     return chords
+
+def rename_files(files_path):
+    directory = Path(files_path)
+
+    for file in directory.iterdir():
+        print(file.name)
+    
