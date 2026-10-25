@@ -33,16 +33,19 @@ def get_chords(file_path):
 
     return chords
 
-def rename_files(files_path):
-    directory = Path(files_path)
-    pattern = r'Mix-(G\d+)_S\d+_L\d+_(R[12])_001\.fastq'
-    new_pattern = r'\1_\2.fastq'
+def rename_files(dir, pattern, new_pattern=None, sample_names=None, to_replace=False):
+    directory = Path(dir)
 
     for file in directory.iterdir():
         if re.search(pattern, file.name):
+        if new_pattern is not None:
             new_name = re.sub(pattern, new_pattern, file.name)
-            new_path = directory / new_name
+        else:
+            new_name = file.name
+
+        new_path = directory / new_name
+
+        if not new_path.exists():
             shutil.copy2(file, new_path)
-            print(new_name)
 
     
