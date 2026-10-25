@@ -47,10 +47,12 @@ def rename_files(dir, pattern, new_pattern=None, sample_names=None, to_replace=F
                 for old_name, new_sample_name in sample_names.items():
                     new_name = new_name.replace(old_name, new_sample_name)
 
-            new_path = directory / new_name
+            if new_name != file.name:
+                new_path = directory / new_name
 
-            if to_replace:
-                file.rename(new_path)
-            else:
-                shutil.copy2(file, new_path)
+                if to_replace:
+                    file.rename(new_path)
+                else:
+                    shutil.copy2(file, new_path)
+
     
