@@ -38,14 +38,18 @@ def rename_files(dir, pattern, new_pattern=None, sample_names=None, to_replace=F
 
     for file in directory.iterdir():
         if re.search(pattern, file.name):
-        if new_pattern is not None:
-            new_name = re.sub(pattern, new_pattern, file.name)
-        else:
-            new_name = file.name
+            if new_pattern is not None:
+                new_name = re.sub(pattern, new_pattern, file.name)
+            else:
+                new_name = file.name
 
-        new_path = directory / new_name
+            if sample_names is not None:
+                for old_name, new_sample_name in sample_names.items():
+                    new_name = new_name.replace(old_name, new_sample_name)
 
-        if not new_path.exists():
-            shutil.copy2(file, new_path)
+            new_path = directory / new_name
+
+            if not new_path.exists():
+                shutil.copy2(file, new_path)
 
     
