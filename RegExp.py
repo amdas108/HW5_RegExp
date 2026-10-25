@@ -1,4 +1,6 @@
-def rus2salt_translator(text):
+import re
+
+def rus2salt(text):
     pattern = r'[АЕЁИОУЫЭЮЯаеёиоуыэюя]'
     result = ''
     for letter in text:
@@ -9,5 +11,5 @@ def rus2salt_translator(text):
                 result += letter + 'c' + letter
         else:
             result += letter
-
+    print(result)
     return result
