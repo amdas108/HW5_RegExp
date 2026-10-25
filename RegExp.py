@@ -34,10 +34,12 @@ def get_chords(file_path):
 
 def rename_files(files_path):
     directory = Path(files_path)
-    pattern = r'Mix-G\d+_S2[12]_L001_R[12]_001\.fastq'
+    pattern = r'Mix-(G\d+)_S\d+_L\d+_(R[12])_001\.fastq'
+    new_pattern = r'\1_\2.fastq'
 
     for file in directory.iterdir():
         if re.search(pattern, file.name):
-            print(file.name)
+            new_name = re.sub(pattern, new_pattern, file.name)
+            print(new_name)
 
     
